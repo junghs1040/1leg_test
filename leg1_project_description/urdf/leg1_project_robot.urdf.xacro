@@ -1,0 +1,16 @@
+<?xml version="1.0"?>
+<robot name="leg1_project" xmlns:xacro="http://ros.org/wiki/xacro">
+
+  <!-- Import Rviz colors -->
+  <!--<xacro:include filename="$(find leg1_project_description)/urdf/materials.xacro" />-->
+
+  <!-- Import all Gazebo-customization elements, including Gazebo colors -->
+  <xacro:include filename="$(find leg1_project_description)/urdf/leg1_project.gazebo.xacro" />
+
+  <!-- Import Transmission -->
+  <xacro:include filename="$(find leg1_project_description)/urdf/leg1_project.transmission.xacro" />
+
+  <!-- Import URDF -->
+  <xacro:include filename="$(find leg1_project_description)/urdf/leg1_project.urdf.xacro" />
+
+</robot>

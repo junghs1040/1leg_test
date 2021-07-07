@@ -1,0 +1,17 @@
+<launch>
+  <arg
+    name="model" />
+  <param
+    name="robot_description"
+    textfile="$(find leg1_project)/urdf/leg1_project.urdf" />
+  <node name="robot_node" pkg="leg1_project" type="robot_node" output="screen"/>
+  <node
+    name="robot_state_publisher"
+    pkg="robot_state_publisher"
+    type="robot_state_publisher" />
+  <node
+    name="rviz"
+    pkg="rviz"
+    type="rviz"
+    args="-d $(find leg1_project)/rviz/urdf.rviz" />
+</launch>

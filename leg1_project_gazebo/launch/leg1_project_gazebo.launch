@@ -1,0 +1,37 @@
+<launch>
+  
+    <!-- these are the arguments you can pass this launch file, for example paused:=true -->
+    <arg name="paused" default="false"/>
+    <arg name="use_sim_time" default="true"/>
+    <arg name="gui" default="true"/>
+    <arg name="headless" default="false"/>
+    <arg name="debug" default="false"/>
+    <arg name="ros_control_file"   default="$(find leg1_project_controller)/config/leg1_project_control.yaml" />
+    <arg name="gazebo_world"       default="$(find leg1_project_gazebo)/worlds/mintchoco1.world" />
+    <arg name="world_init_x"       default="0.0" />
+    <arg name="world_init_y"       default="0.0" />
+    <arg name="world_init_z"       default="1.0" />
+    <arg name="world_init_heading" default="0.0" />
+
+    <!-- this should be only called once on multi-robot simulation -->
+    <include file="$(find gazebo_ros)/launch/empty_world.launch">
+      <arg name="world_name" value="$(find leg1_project_gazebo)/worlds/rrbot.world"/>
+      <arg name="gui" value="$(arg gui)" />
+      <arg name="paused" value="$(arg paused)"/>
+      <arg name="use_sim_time" value="$(arg use_sim_time)"/>
+      <arg name="headless" value="$(arg headless)"/>
+    </include>
+
+  <!-- Load the URDF into the ROS Parameter Server -->
+  <param name="robot_description"
+    command="$(find xacro)/xacro --inorder '$(find leg1_project_description)/urdf/leg1_project_robot.urdf.xacro'" />
+
+  <!-- Run a python script to the send a service call to gazebo_ros to spawn a URDF robot -->
+  <node name="urdf_spawner" pkg="gazebo_ros" type="spawn_model" respawn="false" output="screen"
+    args="-urdf -model leg1_project -param robot_description 
+    -x $(arg world_init_x) -y $(arg world_init_y) -z $(arg world_init_z) -Y $(arg world_init_heading)"/>
+
+  <!-- ros_control leg1_project launch file -->
+  <include file="$(find leg1_project_controller)/launch/leg1_project_control.launch" />
+
+</launch>
