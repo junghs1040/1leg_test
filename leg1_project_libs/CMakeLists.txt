@@ -20,6 +20,6 @@ include_directories(
   ${EIGEN3_INCLUDE_DIRS}
 )
 
-add_executable(robot_node src/robot_node.cpp )
+add_executable(robot_node src/robot_node.cpp src/Kinematics.cpp )
 add_dependencies(robot_node ${${PROJECT_NAME}_EXPORTED_TARGETS} ${catkin_EXPORTED_TARGETS})
 target_link_libraries(robot_node ${catkin_LIBRARIES})
