@@ -19,8 +19,8 @@ class Leg1Project
         Leg1Project(ros::NodeHandle *nh, ros::NodeHandle *nh_priv);       // constructor
         //~Leg1Project();      // destructor
         void controlLoop(const ros::TimerEvent& event);
-        std::vector<double> joint_state_;
-        std::vector<double> solveInverseKinematics(std::vector<double> position_info);
+        std::vector<float> joint_state_;
+        std::vector<float> solveInverseKinematics(std::vector<float> position_info);
         void publishJoints(std::vector<float> target_joint_position);
         void straightLineStanceTrajectory(double duration_);
 
@@ -30,7 +30,7 @@ class Leg1Project
         ros::Timer loop_timer;
         std::vector<std::string> joint_names_;
         std::vector<float> target_joint_position;
-        
+        float time_ =0.0 ;
  
 
 };
